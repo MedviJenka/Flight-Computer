@@ -5,6 +5,7 @@ from core.logic.ground_speed import DataInput, GroundSpeedCalculatorLogic, Execu
 
 @dataclass
 class CalculatorUI(GroundSpeedCalculatorLogic):
+
     root = tk.Tk()
     root.title("Calculator")
     expression = ""
@@ -18,6 +19,7 @@ class CalculatorUI(GroundSpeedCalculatorLogic):
         self.create_button("7", 4, 0)
         self.create_button("8", 4, 1)
         self.create_button("9", 4, 2)
+        self.create_button("+", 4, 3)
 
         self.create_button("4", 3, 0)
         self.create_button("5", 3, 1)
@@ -30,24 +32,32 @@ class CalculatorUI(GroundSpeedCalculatorLogic):
         self.create_button("3", 2, 2)
         self.create_button("-", 3, 3)
 
-        self.create_button(".", 1, 1)
-        self.create_button("C", 1, 2)
-        self.create_button("+", 1, 3)
+
 
         self.create_button(".", 5, 0)
         self.create_button("0", 5, 1)
         self.create_button("=", 5, 1, column_span=4)
+        self.create_button("DEL", 5, 3)
 
         self.root.mainloop()
 
-    def create_button(self, text: str, row: int, col: int, column_span=1):
+    @staticmethod
+    def data_input_logic() -> any:
+        buttons_input = {
+            'distance': '',
+            'time': '',
+            'GS': ''
+        }
+        data = DataInput(**buttons_input)
+
+    def create_button(self, text: str, row: int, col: int, column_span=1) -> None:
         button = tk.Button(self.root, text=text, width=5, height=2, font=("Arial", 16),
                            command=lambda: self.button_click(text))
         button.grid(row=row, column=col, columnspan=column_span, padx=5, pady=5)
 
-    def button_click(self, text):
+    def button_click(self, text: str) -> None:
         match text:
-            case "C":
+            case "DEL":
                 self.expression = ""
             case "=":
                 try:
