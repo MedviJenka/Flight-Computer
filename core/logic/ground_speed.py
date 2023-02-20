@@ -20,6 +20,18 @@ class GroundSpeedCalculatorLogic:
         log(text=f'ground speed is {ground_speed}')
         return ground_speed
 
+    @staticmethod
+    def get_distance(ground_speed: int, time: int) -> float:
+        distance = ground_speed * time/60
+        log(text=f'distance is {distance} nm')
+        return distance
+
+    @staticmethod
+    def get_time(ground_speed: int, distance: int) -> float:
+        time = distance / ground_speed * 60
+        log(text=f'time is {time}')
+        return time
+
 
 @dataclass
 class ExecuteCalculateGroundSpeed(Executor, GroundSpeedCalculatorLogic):
@@ -28,12 +40,3 @@ class ExecuteCalculateGroundSpeed(Executor, GroundSpeedCalculatorLogic):
         data = DataInput(**read_json('data', 'GS'))
         self.get_ground_speed(distance=data.distance,
                               time=data.time)
-
-
-def app() -> None:
-    calc = GroundSpeedCalculatorLogic()
-    print(calc.get_ground_speed(90, 60))
-
-
-if __name__ == '__main__':
-    app()
