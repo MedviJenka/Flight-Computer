@@ -6,7 +6,7 @@ from datetime import datetime
 
 def read_config(key: str, value: str) -> str:
     config = ConfigParser()
-    config.read(r'C:\Users\evgenyp\PycharmProjects\FlightComputer\core\data\config.ini')
+    config.read(r'C:\Users\medvi\OneDrive\Desktop\assets\Flight-Computer\core\data\config.ini')
     return config.get(key, value)
 
 

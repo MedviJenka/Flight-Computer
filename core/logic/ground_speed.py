@@ -36,7 +36,7 @@ class GroundSpeedCalculatorLogic:
 @dataclass
 class ExecuteCalculateGroundSpeed(Executor, GroundSpeedCalculatorLogic):
 
-    def execute(self) -> None:
+    def execute(self) -> float:
         data = DataInput(**read_json('data', 'GS'))
-        self.get_ground_speed(distance=data.distance,
-                              time=data.time)
+        return self.get_ground_speed(distance=data.distance,
+                                     time=data.time)
